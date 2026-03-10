@@ -5,6 +5,7 @@ import json
 import boto3
 import os
 from openai import OpenAI
+from datetime import datetime
 
 dynamodb = boto3.resource('dynamodb')
 openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))

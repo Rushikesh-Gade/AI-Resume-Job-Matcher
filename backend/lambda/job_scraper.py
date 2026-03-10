@@ -3,6 +3,7 @@ Lambda function to scrape job postings from multiple sources
 """
 import json
 import boto3
+import os
 import requests
 from bs4 import BeautifulSoup
 import time
