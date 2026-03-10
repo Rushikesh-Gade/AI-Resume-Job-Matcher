@@ -1,0 +1,157 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "AI Resume Job Matcher API",
+    "description": "API for resume analysis and job matching",
+    "version": "1.0.0"
+  },
+  "basePath": "/prod",
+  "schemes": ["https"],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register new user",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {"type": "string"},
+                "password": {"type": "string"},
+                "name": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {"description": "User registered successfully"},
+          "400": {"description": "Email already exists"}
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "User login",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {"type": "string"},
+                "password": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {"description": "Login successful"},
+          "401": {"description": "Invalid credentials"}
+        }
+      }
+    },
+    "/resume/upload": {
+      "post": {
+        "summary": "Upload and parse resume",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {"description": "Resume uploaded successfully"},
+          "400": {"description": "Invalid file format"}
+        }
+      }
+    },
+    "/jobs/matches": {
+      "get": {
+        "summary": "Get job matches for user",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {"description": "Matches retrieved successfully"}
+        }
+      }
+    },
+    "/resume/optimize": {
+      "post": {
+        "summary": "Get resume optimization suggestions",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "job_id": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {"description": "Suggestions generated"}
+        }
+      }
+    },
+    "/coverletter/generate": {
+      "post": {
+        "summary": "Generate cover letter",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "job_id": {"type": "string"}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {"description": "Cover letter generated"}
+        }
+      }
+    }
+  }
+}
